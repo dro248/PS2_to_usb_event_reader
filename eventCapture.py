@@ -57,6 +57,7 @@ def interpret(button_table, value_table, etype, code, value):
     if etype == 0:
         return
 
+    # show everything
     # print "etype", etype, "code", code, "value", value
     # print "-------------------"
 
