@@ -3,12 +3,24 @@ import struct
 import time
 import sys
 
+steering_table = {
+	
+}
+
 
 button_table = {
 	288 : 'TRIANGLE_BUTTON',
 	289 : 'CIRCLE_BUTTON',
 	290 : 'X_BUTTON',
-	291 : 'SQUARE_BUTTON'
+    291 : 'SQUARE_BUTTON',
+    292 : 'L2_BUTTON',
+	293 : 'R2_BUTTON',
+    294 : 'L1_BUTTON',
+    295 : 'R1_BUTTON',
+    296 : 'SELECT_BUTTON',
+    297 : 'START_BUTTON',
+    298 : 'L_STICK_BUTTON',
+    299 : 'R_STICK_BUTTON',
 }
 
 value_table = { 0:'RELEASED', 1:'PRESSED'}
@@ -18,11 +30,19 @@ value_table = { 0:'RELEASED', 1:'PRESSED'}
 # 		free FUNCTIONS			#
 #################################
 def interpret(button_table, value_table, etype, code, value):
-	# print "interpreting..."
-	if etype == 1:
-		print button_table[code], value_table[value]
-	    # print "type", etype, "code", code, "value", value
-	    # print "-------------------"
+	
+    # print "type", etype, "code", code, "value", value
+    # print "-------------------"	
+
+	# if etype == 3:
+	#     print "type", etype, "code", code, "value", value
+	#     print "-------------------"
+
+    if etype == 1:
+        try:
+            print button_table[code], value_table[value]
+        except:
+            print "button not found!"
 
 
 
