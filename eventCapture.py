@@ -31,18 +31,35 @@ value_table = { 0:'RELEASED', 1:'PRESSED'}
 #################################
 def interpret(button_table, value_table, etype, code, value):
 	
-    # print "type", etype, "code", code, "value", value
-    # print "-------------------"	
-
-	# if etype == 3:
-	#     print "type", etype, "code", code, "value", value
-	#     print "-------------------"
-
     if etype == 1:
         try:
             print button_table[code], value_table[value]
         except:
             print "button not found!"
+
+    elif etype == 3:
+        # up/down BUTTON(?): value ranges from (UP:0, to DOWN:255), middle is 127 or 128 (?)
+        if code == 0:
+            if value < 120:     print "LEFT_ARROW PRESSED", value
+            elif value > 130:   print "RIGHT_ARROW PRESSED", value
+        if code == 1:
+            if value < 120:     print "UP_ARROW PRESSED", value
+            elif value > 130:   print "DOWN_ARROW PRESSED", value
+        if code == 2:
+            # print "etype", etype, "code", code, "value", value
+            if value < 128:     print "viewing UP:", value
+            elif value > 128:   print "viewing DOWN:", value
+        if code == 5:
+            # print "etype", etype, "code", code, "value", value
+            if value < 128:     print "viewing LEFT:", value
+            elif value > 128:   print "viewing RIGHT:", value
+
+    if etype == 0:
+        return
+
+    # print "etype", etype, "code", code, "value", value
+    # print "-------------------"
+
 
 
 
@@ -50,16 +67,24 @@ def interpret(button_table, value_table, etype, code, value):
 
 
 #####################################################################
-# MAIN
+#                             MAIN                                  #
+#####################################################################
 
+##########
+#  args  #
+##########
 if len(sys.argv) < 2:
-	print "Please include the event number (ps2 controller is 15)."
-	print "Usage: ./eventCapture.py [eventNumber]"
-	sys.exit(1)
+    print "Please include the event number (ps2 controller is 15)."
+    print "Usage: ./eventCapture.py [eventNumber]"
+    sys.exit(1)
 
 
 infile_path = "/dev/input/event" + (sys.argv[1] if len(sys.argv) > 1 else "0")
 
+
+#################################
+#  READ FROM /dev/input/eventX  #
+#################################
 #long int, long int, unsigned short, unsigned short, unsigned int
 FORMAT = 'llHHI'
 EVENT_SIZE = struct.calcsize(FORMAT)
